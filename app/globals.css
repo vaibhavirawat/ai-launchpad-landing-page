@@ -43,6 +43,18 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@theme {
+  --color-ink: #07071a;
+  --color-panel: #0f0f2a;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-brand: #6366f1;
+  --color-brand-light: #a5b4fc;
+  --color-brand-deep: #4338ca;
+  --color-wa: #22c55e;
 }
 
 :root {
@@ -160,4 +172,93 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* AI Launchpad landing page */
+html {
+  scroll-behavior: smooth;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+}
+
+.glow {
+  background: radial-gradient(600px 300px at 50% 0%, rgba(99, 102, 241, 0.35), transparent 70%);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.acc-panel[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+.acc-panel > div {
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  background: rgba(4, 4, 15, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.wa-icon {
+  -webkit-mask: url(https://cdn.jsdelivr.net/npm/simple-icons@13/icons/whatsapp.svg) center / contain no-repeat;
+  mask: url(https://cdn.jsdelivr.net/npm/simple-icons@13/icons/whatsapp.svg) center / contain no-repeat;
+  background: currentColor;
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem 1rem;
+  color: #fff;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.field::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+.field:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+.field[aria-invalid='true'] {
+  border-color: #f87171;
 }
